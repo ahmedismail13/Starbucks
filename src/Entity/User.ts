@@ -1,4 +1,13 @@
-import { Entity, ObjectID, ObjectIdColumn, Column, BaseEntity, Unique, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import {
+  Entity,
+  ObjectID,
+  ObjectIdColumn,
+  Column,
+  BaseEntity,
+  Unique,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { Address } from "./Address";
 
 @Entity()
@@ -29,10 +38,10 @@ export class User extends BaseEntity {
   phoneNumber: string;
 
   @Column()
-  role: string;
+  role: Role;
 
   @Column()
-  userSource: string;
+  userSource: UserSource;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -43,6 +52,18 @@ export class User extends BaseEntity {
   @Column()
   lastLogin: Date;
 
-  @Column(type => Address)
+  @Column(() => Address)
   address: [Address];
+}
+
+export enum UserSource {
+  FACEBOOK = "FACEBOOK",
+  GOOGLE = "GOOGLE",
+  EMAIL = "EMAIL",
+}
+
+export enum Role {
+  USER = "USER",
+  ADMIN = "ADMIN",
+  MODERATOR = "MODERATOR",
 }
